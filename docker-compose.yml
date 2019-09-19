@@ -1,0 +1,62 @@
+version: '3.0'
+
+services:
+
+  entrypoint:
+    container_name: multipartstream-entrypoint
+    build:
+      context: .
+    image: multipartstream-java:latest
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
+    networks:
+      - multipartstream-network
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+    environment:
+      PORT: 8080
+      CLIENT_URL: middleman:8081/stream
+
+  middleman:
+    container_name: multipartstream-middleman
+    build:
+      context: .
+    image: multipartstream-java:latest
+    expose:
+      - 8081
+    networks:
+      - multipartstream-network
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+    environment:
+      PORT: 8081
+      CLIENT_URL: warehouse:8082/store
+
+  warehouse:
+    container_name: multipartstream-warehouse
+    build:
+      context: .
+    image: multipartstream-java:latest
+    volumes:
+      - ./tmp:/tmp/warehouse
+    expose:
+      - 8082
+    ports:
+      - 8082:8082
+    networks:
+      - multipartstream-network
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+    environment:
+      PORT: 8082
+
+networks:
+  multipartstream-network:

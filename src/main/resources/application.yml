@@ -1,0 +1,11 @@
+server:
+  port: ${PORT}
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 512MB
+      max-request-size: 512MB
+
+client:
+  url: ${CLIENT_URL}
