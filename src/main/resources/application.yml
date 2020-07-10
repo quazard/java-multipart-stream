@@ -6,6 +6,9 @@ spring:
     multipart:
       max-file-size: 512MB
       max-request-size: 512MB
+  mvc:
+    async:
+      request-timeout: -1
 
 client:
   url: ${CLIENT_URL}

@@ -23,8 +23,6 @@ services:
 
   middleman:
     container_name: multipartstream-middleman
-    build:
-      context: .
     image: multipartstream-java:latest
     expose:
       - 8081
@@ -40,8 +38,6 @@ services:
 
   warehouse:
     container_name: multipartstream-warehouse
-    build:
-      context: .
     image: multipartstream-java:latest
     volumes:
       - ./tmp:/tmp/warehouse
